@@ -58,12 +58,12 @@
                         $users = [];
                         $sql = "SELECT * FROM users";
                         // สร้างตาราง users จำลอง ถ้ายังไม่มี (เฉพาะตัวอย่างนี้)
-                        $conn->query("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(50), last_name VARCHAR(50), age INT)");
+                        // $conn->query("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(50), last_name VARCHAR(50), age INT)");
                         // ใส่ข้อมูลจำลอง ถ้าตารางว่าง (เฉพาะตัวอย่างนี้)
                         $check = $conn->query("SELECT count(*) as count FROM users")->fetch_object();
-                        if ($check->count == 0) {
-                            $conn->query("INSERT INTO users (first_name, last_name, age) VALUES ('Somchai', 'Jaidee', 30), ('Somsri', 'Rakrian', 25)");
-                        }
+                        //if ($check->count == 0) {
+                        //    $conn->query("INSERT INTO users (first_name, last_name, age) VALUES ('Somchai', 'Jaidee', 30), ('Somsri', 'Rakrian', 25)");
+                        //}
 
                         if ($result = $conn->query($sql)) {
                             while($data = $result->fetch_object()) {
@@ -79,6 +79,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
+                                    <th scope="col">User ID</th>
                                     <th scope="col">Age</th>
                                 </tr>
                             </thead>
@@ -89,6 +90,7 @@
                                         <th scope="row"><?= $index + 1 ?></th>
                                         <td><?= htmlspecialchars($u->first_name) ?></td>
                                         <td><?= htmlspecialchars($u->last_name) ?></td>
+                                        <td><span class="badge bg-secondary"><?= htmlspecialchars($u->user_id) ?></span></td>
                                         <td><span class="badge bg-info text-dark"><?= htmlspecialchars($u->age) ?> ปี</span></td>
                                     </tr>
                                     <?php endforeach; ?>
